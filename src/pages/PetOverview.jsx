@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-export function PetOverview({ pets }) {
+export default function PetOverview({ pets }) {
   const navigate = useNavigate();
 
   return (
