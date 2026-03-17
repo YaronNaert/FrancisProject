@@ -5,15 +5,16 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm ci",
     "preview": "vite preview",
-    "serve": "node server.js"
+    "serve": "node index.js"
   },
   "dependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "html2canvas": "^1.4.1",
-    "jspdf": "^2.5.1"
+    "jspdf": "^2.5.1",
+    "express": "^4.18.2"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.1",
