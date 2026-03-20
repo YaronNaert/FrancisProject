@@ -1,21 +1,23 @@
-# Step 1: Use Node to build and run
 FROM node:20-slim
 
-# Create app directory
+# Set the working directory
 WORKDIR /usr/src/app
 
-# Copy package files and install
+# Copy only package files first
 COPY package*.json ./
+
+# Install dependencies from scratch (ensures correct Linux permissions)
 RUN npm install
 
-# Copy all your source code
+# Copy the rest of your source code
 COPY . .
 
-# Build the React app (This creates the /dist folder)
+# CRITICAL FIX: Ensure Vite is executable in the Linux environment
+RUN chmod +x node_modules/.bin/vite
+
+# Now build the React app
 RUN npm run build
 
-# Expose the port Express is listening on
+# Expose port and start server
 EXPOSE 3000
-
-# Start the server
-CMD [ "npm", "start" ]
+CMD [ "node", "index.js" ]
