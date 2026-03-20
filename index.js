@@ -8,20 +8,29 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Build if dist doesn't exist
-if (!fs.existsSync(path.join(__dirname, 'dist'))) {
-  console.log('Building app...');
-  execSync('npm run build && vite build', { stdio: 'inherit' });
+const distPath = path.join(__dirname, 'dist');
+
+// Auto-build logic: Only runs if 'dist' is missing
+if (!fs.existsSync(distPath)) {
+  console.log('🚀 No build found. Generating production files...');
+  try {
+    // Just run 'npm run build' once. 
+    // It's cleaner and uses your package.json definition.
+    execSync('npm run build', { stdio: 'inherit' });
+  } catch (err) {
+    console.error('❌ Build failed! Check your React code for errors.');
+    process.exit(1);
+  }
 }
 
-// Serve static files from dist
-app.use(express.static(path.join(__dirname, 'dist')));
+// Serve static files
+app.use(express.static(distPath));
 
-// Fallback to index.html for SPA routing
+// SPA Routing Fallback
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  res.sendFile(path.join(distPath, 'index.html'));
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`✅ Server is live at http://localhost:${PORT}`);
 });
