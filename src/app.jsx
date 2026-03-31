@@ -1,21 +1,21 @@
 import React, { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import DashboardLayout from "./layouts/DashboardLayout";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import PetOverview from "./pages/PetOverview";
 import NutritionCalculator from "./pages/NutritionCalculator";
+import Navbar from "./components/Navbar"; // Import the new Navbar
 import { Header, StyleTag } from "./components/UIComponents";
 import "./index.css";
 
-export default function App() {
-  // Global pet state
-  const [pets, setPets] = useState([
-    { id: "1", name: "Bowie", petType: "dog", breed: "Beagle", birthDate: "2020-01-01", conditionPct: 100, idealWeight: 12 },
-  ]);
+function AppContent({ pets, setPets }) {
+  const location = useLocation();
+  
+  // Logic: Is the user currently using the calculator?
+  const isCalculatorPage = location.pathname.startsWith("/calculator");
 
   return (
-    <BrowserRouter>
-      <StyleTag />
-      <div className="site-wrapper">
+    <div className="site-wrapper">
+      {isCalculatorPage ? (
+        /* 1. SIMPLE HEADER (For Guest/Calculator users) */
         <header className="site-header">
           <div className="header-left">
             <a href="https://othonandfriends.com" className="btn-secondary-outline">
@@ -23,27 +23,40 @@ export default function App() {
               <span className="text">Terug naar home</span>
             </a>
           </div>
-
           <div className="header-center">
-            <img src="../logo.png" alt="Othon & Friends" className="site-logo" />
+            <img src="/logo.png" alt="O&F" className="site-logo" />
           </div>
-
           <div className="header-right">
             <Header variant="lang-only" />
           </div>
         </header>
+      ) : (
+        /* 2. FULL NAVBAR (For Logged-in/Dashboard users) */
+        <Navbar />
+      )}
 
-        <main className="content-container">
-          <Routes>
-            <Route path="/" element={<PetOverview pets={pets} />} />
-            <Route 
-              path="/calculator/:petId?" 
-              element={<NutritionCalculator pets={pets} setPets={setPets} />} 
-            />
-            {/* Future routes for Shop and Orders go here */}
-          </Routes>
-        </main>
-      </div>
+      <main className="content-container">
+        <Routes>
+          <Route path="/" element={<PetOverview pets={pets} />} />
+          <Route 
+            path="/calculator/:petId?" 
+            element={<NutritionCalculator pets={pets} setPets={setPets} />} 
+          />
+        </Routes>
+      </main>
+    </div>
+  );
+}
+
+export default function App() {
+  const [pets, setPets] = useState([
+    { id: "1", name: "Bowie", petType: "dog", breed: "Beagle", birthDate: "2020-01-01", idealWeight: 12 },
+  ]);
+
+  return (
+    <BrowserRouter>
+      <StyleTag />
+      <AppContent pets={pets} setPets={setPets} />
     </BrowserRouter>
   );
 }

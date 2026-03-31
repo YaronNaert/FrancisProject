@@ -1,3 +1,5 @@
+
+
 :root {
   --brand-orange: #F1891A;
   --brand-bg: #f8fafc;
@@ -1384,4 +1386,300 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 5%;
+  background: white;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a.active {
+  color: var(--brand-orange);
+  font-weight: 800;
+}
+
+.pet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.pet-card {
+  background: white;
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  border: 2px solid var(--border-color);
+  transition: transform 0.2s;
+}
+
+.pet-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--brand-orange);
+}
+
+.pet-card.placeholder {
+  border: 2px dashed var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.pet-card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.main-navbar {
+  height: 80px;
+  background: white;
+  border-bottom: 1px solid #eee;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  padding: 0 5%;
+}
+
+.nav-inner {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo { height: 40px; }
+
+.nav-links {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+}
+.nav-links li {
+  display: flex;
+  align-items: center;
+  height: 100%; /* Keeps the list item filling the navbar height */
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #666;
+  font-weight: 600;
+  font-size: 15px;
+  transition: color 0.2s;
+  
+  /* Vertical Locking */
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.2; /* Fixed line height prevents vertical growth */
+  height: 20px;     /* Forces a consistent height for the text area */
+  position: relative;
+}
+
+/* This is the invisible "anchor" we made before */
+.nav-links a::after {
+  display: block;
+  content: attr(data-text);
+  font-weight: 800;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.nav-links a.active {
+  color: var(--brand-orange, #ff6b00);
+  font-weight: 800;
+  /* Ensure no transform or padding is added here */
+}
+
+.nav-links a:hover {
+  color: var(--brand-orange, #ff6b00);
+}
+
+.user-profile-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f0f0f0;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+.overview-header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr; 
+  align-items: center;
+  margin-bottom: 40px;
+  gap: 20px;
+}
+
+.overview-header .h1 {
+  grid-column: 2; /* Forces title to the middle column */
+  text-align: center;
+  margin: 0;
+}
+
+.overview-header .primary-btn {
+  grid-column: 3; /* Forces button to the right column */
+  justify-self: end; /* Aligns the button to the right edge */
+}
+/* Placeholder Card Specifics */
+.pet-card.placeholder {
+  border: 2px dashed #ccc;
+  background: #fdfdfd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px; /* Adjust to match your real card height */
+  cursor: pointer;
+  color: #888;
+  transition: all 0.2s ease;
+}
+
+.pet-card.placeholder:hover {
+  border-color: var(--brand-orange);
+  background: #fffafa;
+  color: var(--brand-orange);
+}
+
+.add-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+  font-weight: 300;
+}
+
+.pet-card.placeholder span {
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Header Centering Balance */
+.header-spacer {
+  width: 160px; /* Approximate width of your 'New Pet' button to keep title centered */
+}
+
+/* The Grid Container */
+.pet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  padding: 20px 0;
+}
+
+/* The Base Card */
+.pet-card {
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 28px;
+  border: 1px solid #edf2f7;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.pet-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  border-color: var(--brand-orange);
+}
+
+/* The Header Section */
+.pet-card-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.pet-type-icon {
+  font-size: 24px;
+  background: #f8fafc;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+}
+
+.pet-card-header h3 {
+  font-size: 20px;
+  font-weight: 800;
+  color: #1a202c;
+  margin: 0;
+}
+
+/* The Info List */
+.pet-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #718096;
+}
+
+.info-item strong {
+  color: #2d3748;
+}
+
+/* The Buttons (The "Premium" Touch) */
+.pet-card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: auto; /* Pushes buttons to bottom */
+}
+
+.btn-edit {
+  background: #f1f5f9;
+  color: #475569;
+  border: none;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-plan {
+  background: var(--brand-orange);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 14px 0 rgba(241, 137, 26, 0.39);
+}
+
+.btn-plan:hover {
+  filter: brightness(1.1);
 }

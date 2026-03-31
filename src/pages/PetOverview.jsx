@@ -1,4 +1,6 @@
+import React from "react";
 import { useNavigate } from "react-router-dom";
+import PetCard from "../components/PetCard"; // Make sure the path is correct!
 
 export default function PetOverview({ pets }) {
   const navigate = useNavigate();
@@ -6,26 +8,25 @@ export default function PetOverview({ pets }) {
   return (
     <div className="page-wrapper">
       <div className="overview-header">
+        {/* Invisible div to balance the grid columns for centering */}
+        <div className="header-spacer"></div>
+        
         <h1 className="h1">Mijn Roedel</h1>
+        
+        {/* We keep the button just in case, but the card is the main star now */}
         <button className="primary-btn" onClick={() => navigate("/calculator")}>
           ✨ Nieuw Huisdier
         </button>
       </div>
 
       <div className="pet-grid">
-        {pets.map(pet => (
-          <div 
-            key={pet.id} 
-            className="pet-card" 
-            onClick={() => navigate(`/calculator/${pet.id}`)}
-          >
-            {/* Card Content... */}
-            <div className="pet-card-info">
-              <h3>{pet.name}</h3>
-              <p className="small-muted">{pet.breed}</p>
-            </div>
-          </div>
+        {/* 1. Map through existing pets */}
+        {pets.map((pet) => (
+          <PetCard key={pet.id} pet={pet} />
         ))}
+
+        {/* 2. The dedicated "Add New" placeholder card */}
+        <PetCard isPlaceholder={true} />
       </div>
     </div>
   );
