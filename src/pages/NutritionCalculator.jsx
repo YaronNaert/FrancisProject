@@ -13,6 +13,30 @@ export default function NutritionCalculator({ pets, setPets }) {
   const navigate = useNavigate();
   const passportRef = useRef(null);
 
+  // --- STYLES OBJECT ---
+  const styles = {
+    calculatorWrapper: {
+      maxWidth: "900px",
+      margin: "0 auto",
+      padding: "20px",
+      display: "flex",
+      flexDirection: "column",
+      gap: "24px",
+      minHeight: "80vh"
+    },
+    progressSection: {
+      marginBottom: "20px"
+    },
+    stepCard: {
+      background: "white",
+      borderRadius: "32px",
+      padding: "40px",
+      border: "1px solid #edf2f7",
+      boxShadow: "0 10px 30px rgba(0, 0, 0, 0.04)",
+      transition: "all 0.3s ease"
+    }
+  };
+
   // Initialize state: Check if we are editing an existing pet
   const [state, setState] = useState(() => {
     const existing = pets?.find((p) => p.id === petId);
@@ -111,14 +135,6 @@ export default function NutritionCalculator({ pets, setPets }) {
     return `${clamp(Number(state.ageYears), 0, 30)} jaar`;
   }, [state.birthDate, state.ageYears, ageYFromBirth, ageMFromBirth]);
 
-  const feedingFreq = useMemo(() => {
-    if (state.petType === 'dog') {
-      if (state.ageYears < 0.5) return "3 - 4 keer";
-      return "2 keer";
-    }
-    return "2 - 3 keer";
-  }, [state.petType, state.ageYears]);
-
   function handleStepJump(targetStep) {
     if (targetStep <= maxStep) setStep(targetStep);
   }
@@ -146,18 +162,41 @@ export default function NutritionCalculator({ pets, setPets }) {
   }
 
   return (
-    <div className="calculator-wrapper">
-      <div className="progress-section">
+    <div style={styles.calculatorWrapper}>
+      <div style={styles.progressSection}>
         <Header step={step} maxStep={maxStep} onStepClick={handleStepJump} variant="steps-only" />
       </div>
 
-      <div className="step-card">
+      <div style={styles.stepCard}>
         {step === 1 && (
           <StepType onPick={(type) => goNext({ petType: type })} />
         )}
-        {step === 2 && <StepData state={state} breeds={breeds} onChange={setState} onBack={goBack} onNext={goNext} ageDisplay={ageDisplay} />}
-        {step === 3 && <StepActivity state={state} onChange={setState} onBack={goBack} onNext={goNext} />}
-        {step === 4 && <StepPrefs state={state} onChange={setState} onBack={goBack} onNext={goNext} />}
+        {step === 2 && (
+          <StepData 
+            state={state} 
+            breeds={breeds} 
+            onChange={setState} 
+            onBack={goBack} 
+            onNext={goNext} 
+            ageDisplay={ageDisplay} 
+          />
+        )}
+        {step === 3 && (
+          <StepActivity 
+            state={state} 
+            onChange={setState} 
+            onBack={goBack} 
+            onNext={goNext} 
+          />
+        )}
+        {step === 4 && (
+          <StepPrefs 
+            state={state} 
+            onChange={setState} 
+            onBack={goBack} 
+            onNext={goNext} 
+          />
+        )}
         {step === 5 && (
           <StepResult
             state={state} preferredIngredients={preferredIngredients} adjustedWeightKg={adjustedWeightKg}
