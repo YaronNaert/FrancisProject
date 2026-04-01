@@ -4,6 +4,9 @@ import PetOverview from "./pages/PetOverview";
 import NutritionCalculator from "./pages/NutritionCalculator";
 import Navbar from "./components/Navbar"; // Import the new Navbar
 import { Header, StyleTag } from "./components/UIComponents";
+import Orders from "./pages/Orders"; // Import the Orders page
+import OrderDetails from "./pages/OrderDetails"; // Import the OrderDetails page
+import FeedingPlans from "./pages/FeedingPlans";
 import "./index.css";
 
 function AppContent({ pets, setPets }) {
@@ -42,6 +45,14 @@ function AppContent({ pets, setPets }) {
             path="/calculator/:petId?" 
             element={<NutritionCalculator pets={pets} setPets={setPets} />} 
           />
+          <Route path="/orders" element={<Orders />} />
+
+          <Route path="/orders/:orderId" element={<OrderDetails />} />
+
+          <Route path="/plans" element={<FeedingPlans pets={pets} />} />
+  
+          {/* If you haven't made the Shop page yet, you can use a placeholder */}
+          <Route path="/shop" element={<div>Shop komt binnenkort!</div>} />
         </Routes>
       </main>
     </div>

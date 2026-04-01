@@ -8,6 +8,7 @@ export default function Navbar() {
     { name: "Mijn Roedel", path: "/" },
     { name: "Shop", path: "/shop" },
     { name: "Bestellingen", path: "/orders" },
+    { name: "Voedingsplannen", path: "/plans" },
   ];
 
   return (

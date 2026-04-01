@@ -12,11 +12,6 @@ export default function PetOverview({ pets }) {
         <div className="header-spacer"></div>
         
         <h1 className="h1">Mijn Roedel</h1>
-        
-        {/* We keep the button just in case, but the card is the main star now */}
-        <button className="primary-btn" onClick={() => navigate("/calculator")}>
-          ✨ Nieuw Huisdier
-        </button>
       </div>
 
       <div className="pet-grid">
