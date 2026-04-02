@@ -18,10 +18,10 @@ export default function NutritionCalculator({ pets, setPets }) {
     calculatorWrapper: {
       maxWidth: "900px",
       margin: "0 auto",
-      padding: "20px",
+      padding: "40px 20px",
       display: "flex",
       flexDirection: "column",
-      gap: "24px",
+      gap: "32px",
       minHeight: "80vh"
     },
     progressSection: {
@@ -147,6 +147,26 @@ export default function NutritionCalculator({ pets, setPets }) {
   function goBack() {
     setStep((n) => Math.max(1, n - 1));
   }
+
+  // Inside NutritionCalculator.jsx
+
+  function handleOrderFlow(finalState) {
+    // 1. Save the pet data to local storage or a temporary state 
+    // so it isn't lost during registration
+    localStorage.setItem("pending_pet_data", JSON.stringify(finalState));
+
+    // 2. Navigate to your registration/signup page
+    // We pass a 'redirect' query so the app knows where to go after signup
+    navigate("/register?redirect=checkout");
+  }
+
+  // Then update the StepResult call:
+  {step === 5 && (
+    <StepResult
+      // ... all other props ...
+      onOrder={handleOrderFlow} 
+    />
+  )}
 
   async function downloadPassportPdf() {
     const node = passportRef.current;

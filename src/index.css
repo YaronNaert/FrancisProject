@@ -121,3 +121,9 @@ input:focus {
 .animate-fade-in {
   animation: fadeIn 0.4s ease-out forwards;
 }
+
+.input-focus-orange:focus {
+  border-color: var(--brand-orange) !important;
+  background-color: white !important;
+  box-shadow: 0 0 0 4px rgba(241, 137, 26, 0.1);
+}
